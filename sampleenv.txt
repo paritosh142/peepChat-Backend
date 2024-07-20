@@ -11,3 +11,11 @@ CLOUDINARY_CLOUD_NAME= dwgsmaxjm
 CLOUDINARY_API_KEY = 634512919355892
 CLOUDINARY_API_SECRET =  4PLGqGuvOKVaf1kEI6aavVpj5-w
 
+
+
+
+
+MONGO_URI = mongodb+srv://paritosh142:Password%401332@cluster0.d4krw0n.mongodb.net/
+
+
+
