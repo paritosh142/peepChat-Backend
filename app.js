@@ -45,6 +45,7 @@ const onlineUsers = new Set();
 
 connectDB(mongoURI);
 
+// Uncomment these lines if you need to seed the database
 // createUser(20);
 // createSingleChats(40);
 // createGroupChats(10);
@@ -62,10 +63,16 @@ const io = new Server(server, {
   cors: corsOptions,
 });
 
-app.set("io", io);
+// Apply CORS middleware before any other middleware or routes
+app.use(cors(corsOptions));
+
+// Logging middleware to help debug issues
+app.use((req, res, next) => {
+  console.log(`Incoming Request: ${req.method} ${req.url}`);
+  next();
+});
 
 // Using Middlewares Here
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
