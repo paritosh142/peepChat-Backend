@@ -1,4 +1,4 @@
-import { compare } from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js";
 import { getOtherMember } from "../lib/helper.js";
 import { TryCatch } from "../middlewares/error.js";
@@ -12,6 +12,8 @@ import {
   uploadFilesToCloudinary,
 } from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
+
+const { compare } = bcryptjs;
 
 // Create a new user and save it to the database and save token in cookie
 const newUser = TryCatch(async (req, res, next) => {
