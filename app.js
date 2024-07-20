@@ -25,6 +25,12 @@ import { socketAuthenticator } from "./middlewares/auth.js";
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
 import adminRoute from "./routes/admin.js";
+import { createUser } from "./seeders/user.js";
+import {
+  createGroupChats,
+  createMessages,
+  createSingleChats,
+} from "./seeders/chat.js";
 
 dotenv.config({
   path: "./.env",
@@ -38,6 +44,11 @@ const userSocketIDs = new Map();
 const onlineUsers = new Set();
 
 connectDB(mongoURI);
+
+// createUser(20);
+// createSingleChats(40);
+// createGroupChats(10);
+// createMessages(100);
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
