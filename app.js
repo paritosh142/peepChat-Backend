@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { v4 as uuid } from "uuid";
-import cors from "cors";
+// import cors from "cors";
 import { v2 as cloudinary } from "cloudinary";
 import {
   CHAT_JOINED,
@@ -35,6 +35,8 @@ import {
 dotenv.config({
   path: "./.env",
 });
+
+const cors = require("cors");
 
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
