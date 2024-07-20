@@ -1,4 +1,4 @@
-import bcryptjs from "bcryptjs";
+import { compare } from "bcrypt";
 import { NEW_REQUEST, REFETCH_CHATS } from "../constants/events.js";
 import { getOtherMember } from "../lib/helper.js";
 import { TryCatch } from "../middlewares/error.js";
@@ -12,8 +12,6 @@ import {
   uploadFilesToCloudinary,
 } from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
-
-const { compare } = bcryptjs;
 
 // Create a new user and save it to the database and save token in cookie
 const newUser = TryCatch(async (req, res, next) => {
@@ -71,7 +69,7 @@ const getMyProfile = TryCatch(async (req, res, next) => {
 const logout = TryCatch(async (req, res) => {
   return res
     .status(200)
-    .cookie("peepChaToken", "", { ...cookieOptions, maxAge: 0 })
+    .cookie("chattu-token", "", { ...cookieOptions, maxAge: 0 })
     .json({
       success: true,
       message: "Logged out successfully",
