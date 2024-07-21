@@ -26,6 +26,7 @@ import cors from "cors";
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
 import adminRoute from "./routes/admin.js";
+import helmet from "helmet";
 
 // Load environment variables
 dotenv.config({
@@ -58,6 +59,7 @@ app.set("io", io);
 
 // Middleware setup
 app.use(cors(corsOptions));
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
