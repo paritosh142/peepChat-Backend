@@ -26,17 +26,13 @@ import cors from "cors";
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
 import adminRoute from "./routes/admin.js";
-import { createUser } from "./seeders/user.js";
-import {
-  createGroupChats,
-  createMessages,
-  createSingleChats,
-} from "./seeders/chat.js";
 
+// Load environment variables
 dotenv.config({
   path: "./.env",
 });
 
+// Database connection and Cloudinary setup
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
 const envMode = process.env.NODE_ENV.trim() || "PRODUCTION";
@@ -45,11 +41,6 @@ const userSocketIDs = new Map();
 const onlineUsers = new Set();
 
 connectDB(mongoURI);
-
-// createUser(20);
-// createSingleChats(40);
-// createGroupChats(10);
-// createMessages(100);
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -65,11 +56,12 @@ const io = new Server(server, {
 
 app.set("io", io);
 
-// Using Middlewares Here
-app.use(cors());
+// Middleware setup
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+// Route handlers
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRoute);
 app.use("/api/v1/admin", adminRoute);
@@ -78,6 +70,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+// Socket.IO middleware for authentication
 io.use((socket, next) => {
   cookieParser()(
     socket.request,
@@ -86,6 +79,7 @@ io.use((socket, next) => {
   );
 });
 
+// Socket.IO event handlers
 io.on("connection", (socket) => {
   const user = socket.user;
   userSocketIDs.set(user._id.toString(), socket.id);
@@ -118,7 +112,7 @@ io.on("connection", (socket) => {
     try {
       await Message.create(messageForDB);
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
     }
   });
 
@@ -149,12 +143,14 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     userSocketIDs.delete(user._id.toString());
     onlineUsers.delete(user._id.toString());
-    socket.broadcast.emit(ONLINE_USERS, Array.from(onlineUsers));
+    io.emit(ONLINE_USERS, Array.from(onlineUsers));
   });
 });
 
+// Error handling middleware
 app.use(errorMiddleware);
 
+// Server setup
 server.listen(port, () => {
   console.log(`Server is running on port ${port} in ${envMode} Mode`);
 });

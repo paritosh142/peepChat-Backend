@@ -1,10 +1,9 @@
 import cors from "cors";
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
+export const corsOptions = {
+  origin: "https://peepchat.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
-  optionsSuccessStatus: 200,
 };
 
 const PEEP_CHAT_TOKEN = "peepChaToken";
