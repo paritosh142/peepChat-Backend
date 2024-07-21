@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { v4 as uuid } from "uuid";
-import helmet from "helmet"; // Add helmet
+
 import { v2 as cloudinary } from "cloudinary";
 import {
   CHAT_JOINED,
@@ -66,24 +66,7 @@ const io = new Server(server, {
 app.set("io", io);
 
 // Using Middlewares Here
-app.use(helmet()); // Add this line
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "https://apis.google.com",
-      ],
-      objectSrc: ["'self'"],
-      imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'", "https://apis.google.com"],
-    },
-  })
-);
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
