@@ -1,6 +1,6 @@
 # peepChat
 
-The backend for peepChat is built with Express, Socket.IO, and MongoDB. It handles user authentication, real-time chat functionalities, and admin operations. This server-side application works seamlessly with the peepChat frontend, providing essential API endpoints and WebSocket connections for real-time communication. The application is deployed on Vercel and can be accessed [here](https://peepchat.vercel.app/).
+The backend for peepChat is built with Express, Socket.IO, and MongoDB. It handles user authentication, real-time chat functionalities, and admin operations. This server-side application works seamlessly with the peepChat frontend, providing essential API endpoints and WebSocket connections for real-time communication. The application is deployed on Vercel and backend server is deployed on Render and the website can be accessed [here](https://peepchat.vercel.app/).
 
 ## Features
 - **Real-time Communication**: Manage real-time chat and notifications using Socket.IO..
@@ -44,13 +44,14 @@ yarn install
 Create a .env file in the root directory and add the following variables:
 ```bash
 env
-Copy code
+
 MONGO_URI=your-mongodb-uri
 PORT=your-port-number
 CLOUDINARY_CLOUD_NAME=your-cloudinary-cloud-name
 CLOUDINARY_API_KEY=your-cloudinary-api-key
 CLOUDINARY_API_SECRET=your-cloudinary-api-secret
 ADMIN_SECRET_KEY=your-admin-secret-key
+CLIENT
 ```
 
 Running the Application
