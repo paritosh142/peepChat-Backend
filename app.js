@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { v4 as uuid } from "uuid";
-
 import { v2 as cloudinary } from "cloudinary";
 import {
   CHAT_JOINED,
@@ -22,11 +21,11 @@ import { Message } from "./models/message.js";
 import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
 import cors from "cors";
+import helmet from "helmet";
 
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
 import adminRoute from "./routes/admin.js";
-import helmet from "helmet";
 
 // Load environment variables
 dotenv.config({
@@ -64,12 +63,18 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "https://apis.google.com"],
-        styleSrc: ["'self'", "https://fonts.googleapis.com"],
+        scriptSrc: [
+          "'self'",
+          "https://apis.google.com",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+        ],
+        styleSrc: ["'self'", "https://fonts.googleapis.com", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "https://*"],
         connectSrc: ["'self'", "wss:", "https:"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         objectSrc: ["'none'"],
+        frameSrc: ["'self'", "https://apis.google.com"],
         upgradeInsecureRequests: [],
       },
     },
