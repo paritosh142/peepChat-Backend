@@ -1,6 +1,6 @@
 # peepChat
 
-peepChat is a feature-rich chat application frontend built with React, Redux, and Material-UI. This project supports both user and admin functionalities, including user management, chat management, and message management. The application is deployed on Vercel and can be accessed [here](https://peepchat.vercel.app/).
+The backend for peepChat is built with Express, Socket.IO, and MongoDB. It handles user authentication, real-time chat functionalities, and admin operations. This server-side application works seamlessly with the peepChat frontend, providing essential API endpoints and WebSocket connections for real-time communication. The application is deployed on Vercel and can be accessed [here](https://peepchat.vercel.app/).
 
 ## Features
 - **Real-time Communication**: Manage real-time chat and notifications using Socket.IO..
@@ -87,6 +87,6 @@ peepChat-Backend
 ```
 
 ## Frontend Repository
-The backend repository for this project is available [here](https://github.com/paritosh142/peepChat-Backend.git). Make sure to clone and set up the backend server to fully utilize the functionalities of peepChat.
+The frontend repository for this project is available [here](https://github.com/paritosh142/peepChat-Frontend.git). Make sure to clone and set up the frontend client to fully utilize the functionalities of peepChat.
 ## License
 This project is licensed under the MIT License.
