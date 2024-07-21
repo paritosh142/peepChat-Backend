@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { v4 as uuid } from "uuid";
-// import cors from "cors";
+
 import { v2 as cloudinary } from "cloudinary";
 import {
   CHAT_JOINED,
@@ -21,6 +21,7 @@ import { getSockets } from "./lib/helper.js";
 import { Message } from "./models/message.js";
 import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
+import cors from "cors";
 
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
@@ -36,8 +37,6 @@ dotenv.config({
   path: "./.env",
 });
 
-const cors = require("cors");
-
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
 const envMode = process.env.NODE_ENV.trim() || "PRODUCTION";
@@ -47,7 +46,6 @@ const onlineUsers = new Set();
 
 connectDB(mongoURI);
 
-// Uncomment these lines if you need to seed the database
 // createUser(20);
 // createSingleChats(40);
 // createGroupChats(10);
@@ -65,16 +63,10 @@ const io = new Server(server, {
   cors: corsOptions,
 });
 
-// Apply CORS middleware before any other middleware or routes
-app.use(cors(corsOptions));
-
-// Logging middleware to help debug issues
-app.use((req, res, next) => {
-  console.log(`Incoming Request: ${req.method} ${req.url}`);
-  next();
-});
+app.set("io", io);
 
 // Using Middlewares Here
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
