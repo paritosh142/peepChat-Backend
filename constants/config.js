@@ -1,6 +1,4 @@
-import cors from "cors";
-
-export const corsOptions = {
+const corsOptions = {
   origin: "https://peepchat.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
